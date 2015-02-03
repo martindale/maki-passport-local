@@ -99,28 +99,59 @@ function PassportLocal( config ) {
           var plugin = self;
           maki.resources[ self.config.resource ].pre('create', function( next , done ) {
             var self = this;
-            console.log('pre-create plugin ' , plugin.config );
             maki.resources[ plugin.config.resource ].Model.register({
               email: self.email,
               username: self.username
             }, self.password , done );
           });
           
-          maki.app.get('/register', function(req, res, next) {
-            res.render('register');
-          });
           maki.app.get('/sessions', function(req, res, next) {
-            res.render('login');
+            res.format({
+              json: function() {
+                var tmp = JSON.parse( JSON.stringify( req.session ) );
+                tmp.id = tmp.hash;
+                delete tmp.hash;
+                return res.send([ tmp ]);
+              },
+              html: function() {
+                res.render('login');
+              }
+            });
           });
           maki.app.post('/sessions', maki.passport.authenticate('local') , function(req, res, next) {
-            console.log('created session.', req.user._id );
-            req.flash('success', 'logged in');
-            return res.redirect('/');
+            res.format({
+              json: function() {
+                res.redirect(303, '/sessions/' + req.session.hash );
+              },
+              html: function() {
+                req.flash('success', 'logged in');
+                return res.redirect('/');
+              }
+            });
+          });
+          maki.app.get('/sessions/:sessionID', function(req, res, next) {
+            if (req.session.hash != req.param('sessionID')) return next();
+            
+            // TODO: HTML version...
+            var tmp = JSON.parse( JSON.stringify( req.session ) );
+            tmp.id = tmp.hash;
+            delete tmp.hash;
+            return res.send( tmp );
           });
           maki.app.delete('/sessions/:sessionID', function(req, res, next) {
+            
             req.logout();
-            req.flash('success', 'logged out');
-            res.redirect('/');
+            
+            res.format({
+              json: function() {
+                res.status(204).end();
+              },
+              html: function() {
+                req.flash('success', 'logged out');
+                res.redirect('/');
+              }
+            });
+
           });
           
           maki.passport.serializeUser(function(user, done) {
