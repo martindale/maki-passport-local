@@ -1,0 +1,39 @@
+{
+  "name": "maki-passport-local",
+  "version": "0.0.0",
+  "description": "local user logins for maki applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martindale/maki-passport-local.git"
+  },
+  "keywords": [
+    "maki",
+    "framework",
+    "http",
+    "login",
+    "users",
+    "sessions",
+    "passport"
+  ],
+  "author": "Eric Martindale",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martindale/maki-passport-local/issues"
+  },
+  "homepage": "https://github.com/martindale/maki-passport-local",
+  "dependencies": {
+    "async": "^0.9.0",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^2.2.0",
+    "cookie-parser": "^1.3.3",
+    "express-session": "^1.10.2",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^1.0.0",
+    "redis": "^0.12.1"
+  }
+}
