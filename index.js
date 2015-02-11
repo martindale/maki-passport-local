@@ -99,10 +99,13 @@ function PassportLocal( config ) {
           var plugin = self;
           maki.resources[ self.config.resource ].pre('create', function( next , done ) {
             var self = this;
-            maki.resources[ plugin.config.resource ].Model.register({
-              email: self.email,
-              username: self.username
-            }, self.password , done );
+            
+            if (self.email && self.username && self.password) {
+              return maki.resources[ plugin.config.resource ].Model.register( self , self.password , done );
+            }
+            
+            next();
+
           });
           
           maki.app.get('/sessions', function(req, res, next) {
