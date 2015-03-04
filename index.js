@@ -15,6 +15,10 @@ function PassportLocal( config ) {
   var self = this;
   
   self.config = config;
+  
+  if (!config.fields) config.fields = {};
+  
+  config.fields.username = config.fields.username || 'username';
 
   var resources = {};
   if (self.config.resource) {
@@ -99,9 +103,11 @@ function PassportLocal( config ) {
           var plugin = self;
           maki.resources[ self.config.resource ].pre('create', function( next , done ) {
             var self = this;
-            
-            if (self.email && self.username && self.password) {
-              return maki.resources[ plugin.config.resource ].Model.register( self , self.password , done );
+
+            if (self[ plugin.config.fields.username ] && self.password) {
+              var user = JSON.parse( JSON.stringify( self ) );
+              delete user.password;
+              return maki.resources[ plugin.config.resource ].Model.register( user , self.password , done );
             }
             
             next();
