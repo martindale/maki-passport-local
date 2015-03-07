@@ -78,9 +78,12 @@ function PassportLocal( config ) {
                   error: req.flash('error'),
                   success: req.flash('success'),
                 };
+                next();
+              },
+              default: function() {
+                next();
               }
             });
-            next();
 
           });
   
