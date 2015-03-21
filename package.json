@@ -35,5 +35,10 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^1.0.0",
     "redis": "^0.12.1"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.8",
+    "mocha": "^2.2.1"
   }
 }
