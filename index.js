@@ -12,8 +12,9 @@ var flash = require('connect-flash');
 var async = require('async');
 
 function PassportLocal( config ) {
-  var self = this;
+  if (!config) var config = {};
   
+  var self = this;
   self.config = config;
   
   if (!config.fields) config.fields = {};
