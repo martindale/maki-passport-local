@@ -4,7 +4,8 @@
   "description": "local user logins for maki applications",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha --recursive",
+    "coverage": "NODE_ENV=test istanbul cover _mocha -- --recursive"
   },
   "repository": {
     "type": "git",
