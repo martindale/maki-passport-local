@@ -25,3 +25,5 @@ maki.use( passport );
 maki.start();
 
 ```
+
+For a full listing of this and other Maki plugins, see [martindale/maki](https://github.com/martindale/maki).
