@@ -1,4 +1,8 @@
-# maki-passport-local
+maki-passport-local
+===================
+[![Build Status](https://img.shields.io/travis/martindale/maki-passport-local.svg?branch=master&style=flat-square)](https://travis-ci.org/martindale/maki-passport-local)
+[![Coverage Status](https://img.shields.io/coveralls/martindale/maki-passport-local.svg?style=flat-square)](https://coveralls.io/r/martindale/maki-passport-local)
+
 local user logins for maki applications
 
 ## Quick Start
