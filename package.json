@@ -1,6 +1,6 @@
 {
   "name": "maki-passport-local",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "local user logins for maki applications",
   "main": "index.js",
   "scripts": {
