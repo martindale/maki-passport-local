@@ -91,10 +91,8 @@ function PassportLocal( config ) {
           maki.passport.use( new LocalStrategy( verifyUser ) );
           function verifyUser( username , password , done ) {
             var Resource = maki.resources[ self.config.resource ];
-            Resource.query({ username: username }, function(err, users) {
+            Resource.get({ username: username }, function(err, user) {
               if (err) return done(err);
-              var user = users[0];
-              
               if (!user) return done( null , false , { message: 'Invalid login.' } );
   
               user.authenticate( password , function(err) {
