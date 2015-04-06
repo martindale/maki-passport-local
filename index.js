@@ -95,6 +95,8 @@ function PassportLocal( config ) {
               if (err) return done(err);
               if (!user) return done( null , false , { message: 'Invalid login.' } );
   
+              console.log('DAT USER:' , user );
+  
               user.authenticate( password , function(err) {
                 if (err) return done( null , false , { message: 'Invalid login.' } );
                 return done( null , user );
@@ -169,9 +171,7 @@ function PassportLocal( config ) {
             done( null , user._id );
           });
           maki.passport.deserializeUser(function(id, done) {
-            maki.resources[ self.config.resource ].query({ _id: id }, function(err, users) {
-              done( err , users[0] );
-            });
+            maki.resources[ self.config.resource ].get({ _id: id }, done );
           });
           
         }
