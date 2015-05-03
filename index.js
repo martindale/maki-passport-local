@@ -24,8 +24,13 @@ function PassportLocal( config ) {
   var resources = {};
   if (self.config.resource) {
     resources[ self.config.resource ] = {
-      plugin: passportLocalMongoose
-    }
+      plugin: passportLocalMongoose,
+      modifier: function( options ) {
+        options.attributes.hash = {type: String, restricted: true};
+        options.attributes.salt = {type: String, restricted: true};
+        return options;
+      }
+    };
   }
   
   self.extends = {
