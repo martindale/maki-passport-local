@@ -120,10 +120,21 @@ function PassportLocal( config ) {
               delete user.password;
               return maki.resources[ plugin.config.resource ].Model.register( user , self.password , done );
             }
-
             next();
-
           });
+
+          maki.resources[ self.config.resource ].handlers = {
+            html: {
+              create: function(req, res, next) {
+                var user = this;
+
+                req.flash('success', self.config.registerMessage || 'Signed up successfully!');
+                req.logIn(user, function(err) {
+                  return res.redirect(self.config.registerRedirect || '/');
+                });
+              }
+            }
+          }
 
           maki.app.get('/sessions', function(req, res, next) {
             res.format({
