@@ -6,6 +6,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var levelStore = require('level-session-store');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var methodOverrides = require('maki-forms');
 
 var flash = require('connect-flash');
 var async = require('async');
@@ -55,10 +56,12 @@ function PassportLocal( config ) {
         setup: function( maki ) {
           maki.passport = passport;
 
+          var LevelStore = levelStore( session );
+
           if (!fs.existsSync(process.env.PWD + '/data')) fs.mkdirSync(process.env.PWD + '/data');
           if (!fs.existsSync(process.env.PWD + '/data/sessions')) fs.mkdirSync(process.env.PWD + '/data/sessions');
 
-          var LevelStore = levelStore( session );
+          maki.app.use( methodOverrides );
           maki.app.use( cookieParser( maki.config.sessions.secret ) );
 
           maki.app.use( session({
